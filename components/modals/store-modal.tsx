@@ -42,8 +42,8 @@ export const StoreModal = () => {
     try {
       setLoading(true);
       const response = await axios.post('/api/stores', values);
-      console.log(response.data);
-      toast.success("Store Created!");
+      // console.log(response.data);
+      window.location.assign(`/${response.data.id}`); // Using window.location.assign instead of next/navigation/redirect as window.location.assign will do a complete page refresh and load the directed path.
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong!");

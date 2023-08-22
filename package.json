@@ -30,6 +30,7 @@
     "lucide-react": "^0.268.0",
     "mongodb": "^5.7.0",
     "next": "13.4.19",
+    "next-cloudinary": "^4.18.0",
     "postcss": "8.4.28",
     "react": "18.2.0",
     "react-dom": "18.2.0",

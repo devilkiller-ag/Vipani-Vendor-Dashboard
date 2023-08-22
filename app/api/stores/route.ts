@@ -11,7 +11,7 @@ export const POST = async (
 
         // User needs to be loggedIn to create a store
         if(!userId) {
-            return new NextResponse("Unauthorized", { status: 403 });
+            return new NextResponse("Unauthenticated!", { status: 401 });
         }
 
         const body = await req.json();

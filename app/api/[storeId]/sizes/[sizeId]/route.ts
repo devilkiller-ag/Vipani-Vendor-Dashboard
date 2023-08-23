@@ -5,7 +5,7 @@ import prismadb from "@/lib/prismadb";
 
 export const PATCH = async (
   req: Request,
-  { params }: { params: {storeId: string, sizeId: string } }
+  { params }: { params: { storeId: string, sizeId: string } }
 ) => {
   try {
     const { userId } = auth();
@@ -35,7 +35,7 @@ export const PATCH = async (
       }
     })
 
-    if(!storeByUserId) {
+    if (!storeByUserId) {
       return new NextResponse("Unauthorized!", { status: 403 });
     }
 
@@ -80,7 +80,7 @@ export const DELETE = async (
       }
     })
 
-    if(!storeByUserId) {
+    if (!storeByUserId) {
       return new NextResponse("Unauthorized!", { status: 403 });
     }
 
@@ -102,12 +102,6 @@ export const GET = async (
   { params }: { params: { sizeId: string } }
 ) => {
   try {
-    const { userId } = auth();
-
-    if (!userId) {
-      return new NextResponse("Unauthenticated!", { status: 401 });
-    }
-
     if (!params.sizeId) {
       return new NextResponse("Size ID is required!", { status: 400 });
     }

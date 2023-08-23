@@ -102,12 +102,6 @@ export const GET = async (
   { params }: { params: { categoryId: string } }
 ) => {
   try {
-    const { userId } = auth();
-
-    if (!userId) {
-      return new NextResponse("Unauthenticated!", { status: 401 });
-    }
-
     if (!params.categoryId) {
       return new NextResponse("Category ID is required!", { status: 400 });
     }
@@ -115,6 +109,9 @@ export const GET = async (
     const category = await prismadb.category.findUnique({
       where: {
         id: params.categoryId,
+      },
+      include: {
+        billboard: true
       }
     });
 

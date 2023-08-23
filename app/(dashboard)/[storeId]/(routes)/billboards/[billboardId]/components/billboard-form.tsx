@@ -27,6 +27,9 @@ import ImageUpload from "@/components/ui/image-upload";
 
 const formSchema = z.object({
   label: z.string().min(1),
+  labelColor: z.string().min(4).regex(/^#/, {
+    message: 'String must be a valid hex code.'
+  }),
   imageUrl: z.string().min(1),
 });
 
@@ -53,6 +56,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
       label: '',
+      labelColor: '',
       imageUrl: ''
     }
   });
@@ -60,14 +64,14 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
   const onSubmit = async (data: BillboardFormValues) => {
     try {
       setLoading(true);
-      if(initialData) {
+      if (initialData) {
         // edit
         await axios.patch(`/api/${params.storeId}/billboards/${params.billboardId}`, data);
       } else {
         // post
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
-      
+
       router.refresh();
       router.push(`/${params.storeId}/billboards`)
       toast.success(toastMessage);
@@ -135,7 +139,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
               <FormItem>
                 <FormLabel>Background Image</FormLabel>
                 <FormControl>
-                  <ImageUpload 
+                  <ImageUpload
                     value={field.value ? [field.value] : []}
                     disabled={loading}
                     onChange={(url) => field.onChange(url)}
@@ -161,13 +165,33 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name="labelColor"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Label Color</FormLabel>
+                  <FormControl>
+                    <div className="flex items-center gap-x-4">
+                      <Input disabled={loading} placeholder="Label Color" {...field} />
+                      <div
+                        className="border p-4 rounded-full"
+                        style={{ backgroundColor: field.value }}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
 
           <Button disabled={loading} className="ml-auto" type="submit">
             {action}
           </Button>
         </form>
-      </Form> 
+      </Form>
     </>
   )
 }

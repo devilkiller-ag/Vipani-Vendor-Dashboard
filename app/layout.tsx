@@ -8,8 +8,8 @@ import { ToastProvider } from '@/providers/toast-provider';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Prostore Admin Dashboard',
-  description: 'Prostore Admin Dashboard',
+  title: 'Vipaṇi Admin Dashboard',
+  description: 'Vipaṇi Admin Dashboard',
 }
 
 export default function RootLayout({

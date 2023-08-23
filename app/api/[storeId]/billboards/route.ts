@@ -16,11 +16,16 @@ export const POST = async (
     }
 
     const body = await req.json();
-    const { label, imageUrl } = body;
+    const { label, labelColor, imageUrl } = body;
 
     // Store Label Is Mandatory
     if (!label) {
       return new NextResponse("Label is required!", { status: 400 });
+    }
+
+    // Store Label Is Mandatory
+    if (!labelColor) {
+      return new NextResponse("Label Color is required!", { status: 400 });
     }
 
     // Store Image URL Is Mandatory
@@ -47,6 +52,7 @@ export const POST = async (
     const billboard = await prismadb.billboard.create({
       data: {
         label,
+        labelColor,
         imageUrl,
         storeId: params.storeId
       }

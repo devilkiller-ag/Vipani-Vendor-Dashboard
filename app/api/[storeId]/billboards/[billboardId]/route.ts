@@ -15,10 +15,15 @@ export const PATCH = async (
     }
 
     const body = await req.json();
-    const { label, imageUrl } = body;
+    const { label, labelColor, imageUrl } = body;
     if (!label) {
       return new NextResponse("Label is required!", { status: 400 });
     }
+
+    if (!labelColor) {
+      return new NextResponse("Label Color is required!", { status: 400 });
+    }
+
     if (!imageUrl) {
       return new NextResponse("Image URL is required!", { status: 400 });
     }
@@ -46,6 +51,7 @@ export const PATCH = async (
       },
       data: {
         label,
+        labelColor,
         imageUrl,
       }
     });
